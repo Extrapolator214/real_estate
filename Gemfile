@@ -29,6 +29,15 @@ gem "slim-rails"
 # https://github.com/plataformatec/devise
 gem 'devise'
 
+# https://github.com/seyhunak/twitter-bootstrap-rails
+gem 'twitter-bootstrap-rails'
+
+# https://github.com/drapergem/draper
+gem 'draper', '~> 1.3'
+
+# https://github.com/ctran/annotate_models
+gem 'annotate', '~> 2.6.6'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,8 +1,4 @@
-h1 Editing ad
-
-== render 'form'
-
-= link_to 'Show', @ad
-'|
-= link_to 'Back', ads_path
-
+- model_class = Ad
+div class="page-header"
+  h1=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+= render :partial => "form"

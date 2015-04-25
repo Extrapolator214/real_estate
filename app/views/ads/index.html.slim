@@ -4,34 +4,25 @@ div class="page-header"
 table class="table table-striped"
   thead
     tr
-      th= model_class.human_attribute_name(:address)
-      th= model_class.human_attribute_name(:country)
-      th= model_class.human_attribute_name(:region)
-      th= model_class.human_attribute_name(:city)
+      th= model_class.human_attribute_name(:full_address)
       th= model_class.human_attribute_name(:offer)
-      th= model_class.human_attribute_name(:user_id)
-      th= model_class.human_attribute_name(:description)
+      th= model_class.human_attribute_name(:published_by)
       th= model_class.human_attribute_name(:price)
-      th= model_class.human_attribute_name(:price_period)
       th= model_class.human_attribute_name(:created_at)
       th=t '.actions', :default => t("helpers.actions")
   tbody
     - @ads.each do |ad|
       tr
-        td= link_to ad.address, ad_path(ad)
-        td= ad.country
-        td= ad.region
-        td= ad.city
-        td= ad.offer
-        td= ad.user.email
-        td= ad.description
-        td= ad.price
-        td= ad.price_period
-        td=l ad.created_at
+        td= link_to ad.full_address, ad_path(ad)
+        td= ad.offer.humanize
+        td= ad.user.full_name
+        td= ad.decorate.price
+        td= ad.created_at.strftime("%F %R")
         td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_ad_path(ad), :class => 'btn btn-default btn-xs'
-          '
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), ad_path(ad), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+          -if signed_in? && (ad.user == current_user || current_user.admin?)
+            = link_to t('.edit', :default => t("helpers.links.edit")), edit_ad_path(ad), :class => 'btn btn-default btn-xs'
+            '
+            = link_to t('.destroy', :default => t("helpers.links.destroy")), ad_path(ad), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
 
 = link_to t('.new', :default => t("helpers.links.new")), new_ad_path, :class => 'btn btn-primary'
 

@@ -33,7 +33,11 @@ class User < ActiveRecord::Base
   validates :phone, phony_plausible: true
 
   def agent?
-    self.role == :agent
+    self.role == 'agent'
+  end
+
+  def admin?
+    self.role == 'admin'
   end
 
   def agent=(bool)

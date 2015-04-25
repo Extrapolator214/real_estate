@@ -47,6 +47,9 @@ gem 'geocoder'
 # https://github.com/joost/phony_rails
 gem 'phony_rails'
 
+# https://github.com/prawnpdf/prawn
+gem 'prawn'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

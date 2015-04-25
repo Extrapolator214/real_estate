@@ -1,6 +1,7 @@
 class AdsController < ApplicationController
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :check_permissions, only: [:edit, :update, :destroy]
 
   # GET /ads
   # GET /ads.json
@@ -73,5 +74,9 @@ class AdsController < ApplicationController
     def ad_params
       params.require(:ad)
           .permit(:country, :region, :city, :address, :offer, :user_id, :longitude, :latitude, :description, :price, :price_period, :currency)
+    end
+
+    def check_permissions
+      redirect_to root_path unless signed_in? && (@ad.user == current_user || current_user.admin?)
     end
 end

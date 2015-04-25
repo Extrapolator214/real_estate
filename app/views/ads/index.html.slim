@@ -1,0 +1,41 @@
+h1 Listing ads
+
+table
+  thead
+    tr
+      th Country
+      th Region
+      th City
+      th Address
+      th Type
+      th User
+      th Longitude
+      th Latitude
+      th Description
+      th Price
+      th Price period
+      th
+      th
+      th
+
+  tbody
+    - @ads.each do |ad|
+      tr
+        td = ad.country
+        td = ad.region
+        td = ad.city
+        td = ad.address
+        td = ad.type
+        td = ad.user_id
+        td = ad.longitude
+        td = ad.latitude
+        td = ad.description
+        td = ad.price
+        td = ad.price_period
+        td = link_to 'Show', ad
+        td = link_to 'Edit', edit_ad_path(ad)
+        td = link_to 'Destroy', ad, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Ad', new_ad_path

@@ -1,0 +1,39 @@
+p#notice = notice
+
+p
+  strong Country:
+  = @ad.country
+p
+  strong Region:
+  = @ad.region
+p
+  strong City:
+  = @ad.city
+p
+  strong Address:
+  = @ad.address
+p
+  strong Type:
+  = @ad.type
+p
+  strong User:
+  = @ad.user_id
+p
+  strong Longitude:
+  = @ad.longitude
+p
+  strong Latitude:
+  = @ad.latitude
+p
+  strong Description:
+  = @ad.description
+p
+  strong Price:
+  = @ad.price
+p
+  strong Price period:
+  = @ad.price_period
+
+= link_to 'Edit', edit_ad_path(@ad)
+'|
+= link_to 'Back', ads_path

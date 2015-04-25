@@ -1,5 +1,6 @@
 class AdsController < ApplicationController
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /ads
   # GET /ads.json
@@ -25,6 +26,7 @@ class AdsController < ApplicationController
   # POST /ads.json
   def create
     @ad = Ad.new(ad_params)
+    @ad.user_id = current_user.id
 
     respond_to do |format|
       if @ad.save
@@ -69,6 +71,7 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-      params.require(:ad).permit(:country, :region, :city, :address, :type, :user_id, :longitude, :latitude, :description, :price, :price_period)
+      params.require(:ad)
+          .permit(:country, :region, :city, :address, :offer, :user_id, :longitude, :latitude, :description, :price, :price_period, :currency)
     end
 end

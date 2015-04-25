@@ -1,59 +1,57 @@
 = form_for @ad, html: { class: "form form-horizontal ad" } do |f|
-  .form-group
-    = f.label :country, :class => 'control-label'
-    .controls
-      = f.text_field :country, :class => 'form-control'
-    = error_span(@ad[:country])
-  .form-group
-    = f.label :region, :class => 'control-label'
-    .controls
-      = f.text_field :region, :class => 'form-control'
-    = error_span(@ad[:region])
-  .form-group
-    = f.label :city, :class => 'control-label'
-    .controls
-      = f.text_field :city, :class => 'form-control'
-    = error_span(@ad[:city])
+  .form-inline
+    .form-group.form-group-15right
+      = f.label :country, :class => 'control-label'
+      .controls
+        = country_select("ad", "country", {priority_countries: ["GB", "US", "RU"]}, {class: 'form-control'})
+      = error_span(@ad[:country])
+    .form-group.form-group-15right
+      = f.label "Region / State", :class => 'control-label'
+      .controls
+        = f.text_field :region, :class => 'form-control'
+      = error_span(@ad[:region])
+    .form-group.form-group-15rights
+      = f.label :city, :class => 'control-label'
+      .controls
+        = f.text_field :city, :class => 'form-control'
+      = error_span(@ad[:city])
+
+  br
   .form-group
     = f.label :address, :class => 'control-label'
     .controls
       = f.text_field :address, :class => 'form-control'
     = error_span(@ad[:address])
-  .form-group
-    = f.label :type, :class => 'control-label'
-    .controls
-      = f.text_field :type, :class => 'form-control'
-    = error_span(@ad[:type])
-  .form-group
-    = f.label :user_id, :class => 'control-label'
-    .controls
-      = f.text_field :user_id, :class => 'form-control'
-    = error_span(@ad[:user_id])
-  .form-group
-    = f.label :longitude, :class => 'control-label'
-    .controls
-      = f.text_field :longitude, :class => 'form-control'
-    = error_span(@ad[:longitude])
-  .form-group
-    = f.label :latitude, :class => 'control-label'
-    .controls
-      = f.text_field :latitude, :class => 'form-control'
-    = error_span(@ad[:latitude])
+
+  br
+  .form-inline
+    .form-group.form-group-15right
+      .controls
+        = f.select :offer, Ad.offers.map{|key, value| [key.humanize, key]}, {}, {class: 'form-control'}
+      = error_span(@ad[:offer])
+    .form-group.form-group-15right
+      .controls
+        .input-group
+          .input-group-addon for
+          = f.number_field :price, min: 0, step: 1, :class => 'form-control'
+        = error_span(@ad[:price])
+    .form-group.form-group-15right
+      .controls
+        = f.select :currency, ['USD', 'GBP', 'RUB'], {}, {class: 'form-control'}
+      = error_span(@ad[:currency])
+    .form-group.form-group-15right
+      .controls
+        .input-group
+          .input-group-addon per
+          = f.select :price_period, Ad.price_periods.keys.to_a, {}, {class: 'form-control'}
+        = error_span(@ad[:price_period])
+
+  br
   .form-group
     = f.label :description, :class => 'control-label'
     .controls
-      = f.text_field :description, :class => 'form-control'
+      = f.text_area :description, :class => 'form-control'
     = error_span(@ad[:description])
-  .form-group
-    = f.label :price, :class => 'control-label'
-    .controls
-      = f.text_field :price, :class => 'form-control'
-    = error_span(@ad[:price])
-  .form-group
-    = f.label :price_period, :class => 'control-label'
-    .controls
-      = f.text_field :price_period, :class => 'form-control'
-    = error_span(@ad[:price_period])
   = f.submit nil, :class => 'btn btn-primary'
   '
   = link_to t('.cancel', :default => t("helpers.links.cancel")), ads_path, :class => 'btn'

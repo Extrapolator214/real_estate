@@ -15,6 +15,9 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  full_name              :string(255)
+#  phone                  :string(255)
+#  role                   :integer
 #
 
 class User < ActiveRecord::Base
@@ -22,4 +25,19 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :ads
+
+  enum role: [:admin, :customer, :agent]
+
+  validates :phone, phony_plausible: true
+
+  def agent?
+    self.role == :agent
+  end
+
+  def agent=(bool)
+    self.role = :agent if bool
+  end
+
 end

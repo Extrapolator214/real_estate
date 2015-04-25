@@ -1,39 +1,15 @@
 - model_class = Ad
 div class="page-header"
-  h1=t '.title', :default => model_class.model_name.human.titleize
+  h1=t '.title', :default => @ad.offer.humanize + ' offer'
 
 p
-  strong= model_class.human_attribute_name(:country) + ':'
+  strong= model_class.human_attribute_name(:full_address) + ':'
   br
-  = @ad.country
+  = @ad.full_address
 p
-  strong= model_class.human_attribute_name(:region) + ':'
+  strong= model_class.human_attribute_name(:published_by) + ':'
   br
-  = @ad.region
-p
-  strong= model_class.human_attribute_name(:city) + ':'
-  br
-  = @ad.city
-p
-  strong= model_class.human_attribute_name(:address) + ':'
-  br
-  = @ad.address
-p
-  strong= model_class.human_attribute_name(:type) + ':'
-  br
-  = @ad.type
-p
-  strong= model_class.human_attribute_name(:user_id) + ':'
-  br
-  = @ad.user_id
-p
-  strong= model_class.human_attribute_name(:longitude) + ':'
-  br
-  = @ad.longitude
-p
-  strong= model_class.human_attribute_name(:latitude) + ':'
-  br
-  = @ad.latitude
+  = "#{@ad.user.full_name} ( #{@ad.user.phone} )"
 p
   strong= model_class.human_attribute_name(:description) + ':'
   br
@@ -41,12 +17,11 @@ p
 p
   strong= model_class.human_attribute_name(:price) + ':'
   br
-  = @ad.price
-p
-  strong= model_class.human_attribute_name(:price_period) + ':'
-  br
-  = @ad.price_period
+  = @ad.decorate.price
 
+= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@ad.latitude}%2C#{@ad.longitude}"
+br
+br
 = link_to t('.back', :default => t("helpers.links.back")), ads_path, :class => 'btn btn-default'
 '
 = link_to t('.edit', :default => t("helpers.links.edit")), edit_ad_path(@ad), :class => 'btn btn-default'

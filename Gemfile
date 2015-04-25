@@ -38,6 +38,15 @@ gem 'draper', '~> 1.3'
 # https://github.com/ctran/annotate_models
 gem 'annotate', '~> 2.6.6'
 
+# https://github.com/stefanpenner/country_select
+gem 'country_select', github: 'stefanpenner/country_select'
+
+# https://github.com/alexreisner/geocoder
+gem 'geocoder'
+
+# https://github.com/joost/phony_rails
+gem 'phony_rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

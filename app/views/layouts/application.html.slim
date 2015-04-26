@@ -42,14 +42,14 @@ html lang="en"
         .col-lg-9
           = bootstrap_flash
           = yield
-        .col-lg-3
-          .well.sidebar-nav
-            h3 Sidebar
-            ul.nav.nav-list
-              li.nav-header Sidebar
-              li= link_to "Link 1", "/path1"
-              li= link_to "Link 2", "/path2"
-              li= link_to "Link 3", "/path3"
+        -if user_signed_in? && current_user.admin?
+          .col-lg-3
+            .well.sidebar-nav
+              h3 Reports
+              ul.nav.nav-list
+                li= link_to "Ads by city", ads_by_city_path
+                li= link_to "Prices by city", prices_by_city_path
+                li= link_to "Top 10 active agents", top_ten_agents_path
 
       footer
         p &copy; Real Estate Company 2015

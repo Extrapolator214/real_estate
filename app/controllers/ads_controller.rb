@@ -64,19 +64,46 @@ class AdsController < ApplicationController
     end
   end
 
+  def ads_by_city
+    @ads = Ad.report_number_by_cities
+    report_with_pdf('AdsByCityPdf', 'ads_by_city')
+  end
+
+  def prices_by_city
+    @ads = Ad.report_prices_by_cities
+    report_with_pdf('PricesByCityPdf', 'prices_by_city')
+  end
+
+  def top_ten_agents
+    @ads = Ad.report_top_10_agents
+    report_with_pdf('TopTenAgentsPdf', 'top_ten_agents')
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ad
-      @ad = Ad.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ad
+    @ad = Ad.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ad_params
-      params.require(:ad)
-          .permit(:country, :region, :city, :address, :offer, :user_id, :longitude, :latitude, :description, :price, :price_period, :currency)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def ad_params
+    params.require(:ad)
+        .permit(:country, :region, :city, :address, :offer, :user_id, :longitude, :latitude, :description, :price, :price_period, :currency)
+  end
 
-    def check_permissions
-      redirect_to root_path unless signed_in? && (@ad.user == current_user || current_user.admin?)
+  def check_permissions
+    redirect_to root_path unless signed_in? && (@ad.user == current_user || current_user.admin?)
+  end
+
+  def report_with_pdf(klass, filename)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = klass.constantize.new(@ads, view_context)
+        send_data pdf.render, filename: "#{filename}_#{Date.today}.pdf",
+                  type: "application/pdf",
+                  disposition: "inline" # open in browser instead of direct download
+      end
     end
+  end
 end

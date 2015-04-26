@@ -1,0 +1,14 @@
+div class="page-header"
+  h1=t '.title', :default => 'Ads by city'
+table class="table table-striped"
+  thead
+    tr
+      th City
+      th Number of ads
+  tbody
+    - @ads.each do |ad|
+      tr
+        td= ad[0]
+        td= ad[1]
+
+= link_to 'Save as PDF', ads_by_city_path(format: :pdf), :class => 'btn btn-primary'

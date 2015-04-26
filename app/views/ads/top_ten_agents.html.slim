@@ -1,0 +1,18 @@
+div class="page-header"
+  h1=t '.title', :default => 'Top 10 active agents'
+table class="table table-striped"
+  thead
+    tr
+      th Full Name
+      th email
+      th phone
+      th number of ads
+  tbody
+    - @ads.each do |ad|
+      tr
+        td= ad[0]
+        td= ad[1]
+        td= ad[2]
+        td= ad[3]
+
+= link_to 'Save as PDF', top_ten_agents_path(format: :pdf), :class => 'btn btn-primary'

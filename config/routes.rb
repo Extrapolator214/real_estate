@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :ads
 
+  get 'ads_by_city' => 'ads#ads_by_city', as: :ads_by_city
+  get 'prices_by_city' => 'ads#prices_by_city', as: :prices_by_city
+  get 'top_ten_agents' => 'ads#top_ten_agents', as: :top_ten_agents
+
   root 'ads#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

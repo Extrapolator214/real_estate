@@ -43,6 +43,9 @@ class Ad < ActiveRecord::Base
     self.price_period = nil if self.offer == 'sell' && price_period.present?
   end
 
+
+  #### REPORTS ##################
+
   def self.report_number_by_cities
     Ad.select("concat(city, ', ', country) as city, count(id) as number").group("concat(city, ', ', country)").
         map { |c| [c.city, c.number] }
@@ -67,5 +70,18 @@ class Ad < ActiveRecord::Base
         where("users.role = ?", User.roles[:agent]).
         group("ads.user_id").
         map { |c| [c.full_name, c.email, c.phone, c.number_of_ads] }
+  end
+
+
+  ### API #################
+
+  def self.api_search(params)
+    ads = all
+    ads = ads.where(country: params[:country]) if params[:country]
+    ads = ads.where(region: params[:region]) if params[:region]
+    ads = ads.where(offer: params[:offer]) if params[:offer]
+    ads = ads.where(city: params[:city]) if params[:city]
+    ads = ads.joins(:users).where(users: {email: params[:user_email]}) if params[:user_email]
+    ads
   end
 end

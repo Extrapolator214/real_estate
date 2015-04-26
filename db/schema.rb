@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150425170138) do
     t.string   "full_name",              limit: 255
     t.string   "phone",                  limit: 255
     t.integer  "role",                   limit: 4
+    t.string   "api_token",              limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

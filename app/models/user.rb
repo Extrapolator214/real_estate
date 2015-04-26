@@ -18,6 +18,7 @@
 #  full_name              :string(255)
 #  phone                  :string(255)
 #  role                   :integer
+#  api_token              :string(255)
 #
 
 class User < ActiveRecord::Base

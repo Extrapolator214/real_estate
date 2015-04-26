@@ -7,9 +7,8 @@ class Api::V1::Ads::ApiAdsController < Api::V1::BaseApiController
   end
 
   def show
-    puts params
-    if @params[:id]
-      render json: Ad.find_by(id: @params[:id])
+    if params[:id]
+      render json: Ad.find_by(id: params[:id])
     else
       render nothing: true, status: :bad_request
     end
